@@ -123,6 +123,14 @@
       margin-top: .25rem;
       clear: both;
     }
+
+    /* Astérisque générée par Brevo (data-required) : redondante avec la
+       mention DSFR "Tous les champs sont obligatoires" affichée une seule
+       fois en tête de formulaire ; on la masque pour éviter la redondance
+       et l'affichage isolé sur sa propre ligne. */
+    .entry__label::after {
+      display: none;
+    }
   </style>
 </head>
 
