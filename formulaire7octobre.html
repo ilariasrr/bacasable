@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="fr" data-fr-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abonnement Lettre d'information - Devenir Enseignant</title>
+
+  <!-- Styles nécessaires au fonctionnement du formulaire Brevo -->
+  <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
+
+  <!-- Feuilles de style officielles DSFR -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.12.1/dist/dsfr.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.12.1/dist/utility/utility.min.css">
+
+  <style>
+    /* Pont entre le moteur Brevo (sib-styles.css) et le DSFR. */
+    .sib-form {
+      padding: 0;
+      background: transparent;
+      text-align: initial;
+    }
+
+    .sib-form-container,
+    #sib-container {
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      text-align: initial;
+    }
+
+    /* Messages de succès / erreur pilotés par Brevo (affichés via style="display:block") */
+    .sib-form-message-panel {
+      display: none;
+      max-width: none;
+      margin: 0 0 1.5rem;
+      padding: 0;
+      border: 0;
+      background: transparent;
+    }
+
+    .sib-form-message-panel[style*="display: block"],
+    .sib-form-message-panel[style*="display:block"] {
+      display: block !important;
+    }
+
+    .sib-form-message-panel__text,
+    .sib-form-message-panel__text--center {
+      display: block;
+      padding: 0;
+      text-align: left;
+    }
+
+    .input--hidden {
+      display: none !important;
+    }
+
+    /* Neutralise les styles de champs Brevo */
+    .entry__field {
+      padding: 0;
+      border: 0;
+      background: transparent;
+    }
+
+    .sib-form-block {
+      padding: 0;
+    }
+
+    .entry__label {
+      width: auto;
+      margin-bottom: 0;
+      font-weight: inherit;
+    }
+
+    /* Erreurs de champ écrites par Brevo, au format DSFR */
+    .entry__error:empty {
+      display: none;
+    }
+
+    .entry__error:not(:empty) {
+      display: block;
+      margin-top: .5rem;
+      color: var(--text-default-error);
+      font-size: .875rem;
+      line-height: 1.5rem;
+    }
+
+    .fr-input-group:has(.entry__error:not(:empty)),
+    .fr-select-group:has(.entry__error:not(:empty)) {
+      padding-left: 1rem;
+      box-shadow: inset 2px 0 0 0 var(--border-plain-error);
+    }
+
+    .fr-input-group:has(.entry__error:not(:empty)) .fr-input,
+    .fr-select-group:has(.entry__error:not(:empty)) .fr-select {
+      box-shadow: inset 0 -2px 0 0 var(--border-plain-error);
+    }
+
+    .sib-form-block__button-with-loader .progress-indicator__icon {
+      width: 1rem;
+      height: 1rem;
+      margin-right: .5rem;
+      fill: currentColor;
+    }
+
+    /* Groupe de boutons : protégé contre les styles Brevo / CMS */
+    .fr-btns-group {
+      display: flex !important;
+      flex-wrap: wrap !important;
+      gap: 1rem !important;
+      align-items: center !important;
+      list-style: none !important;
+      padding: 0 !important;
+      margin: 2rem 0 0 0 !important;
+    }
+
+    .fr-btns-group > li {
+      margin: 0 !important;
+      padding: 0 !important;
+      list-style-type: none !important;
+      display: inline-flex !important;
+      flex: 0 0 auto !important;
+    }
+
+    .fr-btns-group .fr-btn {
+      width: auto !important;
+      max-width: none !important;
+      min-width: fit-content !important;
+      flex: 0 0 auto !important;
+      white-space: nowrap !important;
+      overflow: visible !important;
+      text-overflow: clip !important;
+      min-height: 48px !important;
+      padding: 12px 24px !important;
+      font-size: 1rem !important;
+      line-height: 1.5rem !important;
+      box-sizing: border-box !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+
+    @media (max-width: 576px) {
+      .fr-btns-group {
+        flex-direction: column !important;
+        align-items: stretch !important;
+      }
+      .fr-btns-group > li {
+        width: 100% !important;
+      }
+      .fr-btns-group .fr-btn {
+        width: 100% !important;
+        justify-content: center !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="fr-container fr-my-4w">
+    <div class="fr-grid-row fr-grid-row--center">
+      <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+
+        <div class="sib-form">
+          <div id="sib-form-container" class="sib-form-container">
+
+            <!-- Messages de retour Brevo (affichés par le script Brevo) -->
+            <div id="error-message" class="sib-form-message-panel" role="alert" aria-live="assertive">
+              <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+                <div class="fr-alert fr-alert--error">
+                  <p class="fr-alert__title">Erreur lors de l'inscription</p>
+                  <p class="sib-form-message-panel__inner-text">Nous n'avons pas pu confirmer votre inscription. Veuillez vérifier vos informations et réessayer.</p>
+                </div>
+              </div>
+            </div>
+
+            <div id="success-message" class="sib-form-message-panel" role="status" aria-live="polite">
+              <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+                <div class="fr-alert fr-alert--success">
+                  <p class="fr-alert__title">Inscription confirmée</p>
+                  <p class="sib-form-message-panel__inner-text">Votre inscription est confirmée, merci ! Vous recevrez votre première lettre Devenir enseignant très bientôt.</p>
+                </div>
+              </div>
+            </div>
+
+            <div id="sib-container" class="sib-container--large sib-container--vertical">
+
+              <!-- Formulaire : attributs techniques Brevo + habillage DSFR -->
+              <form
+                id="sib-form"
+                method="POST"
+                action="https://c341516d.sibforms.com/serve/MUIFAOhouc96rHheFnrkqcMzDkOH9pKzS09l7eCdkbMR8uPfo_xrOblZ0KTnuZ2Ba5MdJaO092qgcZQ-RQsn47XfzRe-Fhv9XoKGeaxJTN4hECMc9BC_akxlK7IYKopZwah75FKHJ3x8LHhDp0lu0gG3RsIxG9sHZIlX_DJ1n4pOFipAnzZnlJ2RZtA5UgkXNYxo7iRKDacwkxD07Q=="
+                data-type="subscription"
+                aria-label="Inscription à la lettre d'information Devenir enseignant">
+
+                <!-- 1. Nom -->
+                <div class="sib-input sib-form-block fr-input-group" id="group-nom">
+                  <div class="form__entry entry_block">
+                    <label class="entry__label fr-label" for="NOM">
+                      Nom
+                      <span class="fr-sr-only">(obligatoire)</span>
+                    </label>
+                    <div class="entry__field">
+                      <input class="input fr-input" type="text" id="NOM" name="NOM" maxlength="200" placeholder="Ex : Dupont" autocomplete="family-name" data-required="true" required aria-required="true">
+                    </div>
+                    <p class="entry__error entry__error--primary" id="NOM-error"></p>
+                  </div>
+                </div>
+
+                <!-- 2. Prénom -->
+                <div class="sib-input sib-form-block fr-input-group" id="group-prenom">
+                  <div class="form__entry entry_block">
+                    <label class="entry__label fr-label" for="PRENOM">
+                      Prénom
+                      <span class="fr-sr-only">(obligatoire)</span>
+                    </label>
+                    <div class="entry__field">
+                      <input class="input fr-input" type="text" id="PRENOM" name="PRENOM" maxlength="200" placeholder="Ex : Jean" autocomplete="given-name" data-required="true" required aria-required="true">
+                    </div>
+                    <p class="entry__error entry__error--primary" id="PRENOM-error"></p>
+                  </div>
+                </div>
+
+                <!-- 3. Adresse électronique -->
+                <div class="sib-input sib-form-block fr-input-group" id="group-email">
+                  <div class="form__entry entry_block">
+                    <label class="entry__label fr-label" for="EMAIL">
+                      Adresse électronique
+                      <span class="fr-sr-only">(obligatoire)</span>
+                    </label>
+                    <div class="entry__field">
+                      <input class="input fr-input" type="email" id="EMAIL" name="EMAIL" placeholder="Ex : jean.dupont@gmail.com" autocomplete="email" data-required="true" required aria-required="true">
+                    </div>
+                    <p class="entry__error entry__error--primary" id="EMAIL-error"></p>
+                  </div>
+                </div>
+
+                <!-- 4. Code Postal -->
+                <div class="sib-input sib-form-block fr-input-group" id="group-code-postal">
+                  <div class="form__entry entry_block">
+                    <label class="entry__label fr-label" for="CODE_POSTAL">
+                      Code Postal
+                      <span class="fr-sr-only">(obligatoire)</span>
+                    </label>
+                    <div class="entry__field">
+                      <input class="input fr-input" type="text" id="CODE_POSTAL" name="CODE_POSTAL" maxlength="5" pattern="[0-9]{5}" inputmode="numeric" placeholder="Ex : 75001" autocomplete="postal-code" data-numeric="true" data-required="true" required aria-required="true">
+                    </div>
+                    <p class="entry__error entry__error--primary" id="CODE_POSTAL-error"></p>
+                  </div>
+                </div>
+
+                <!-- 5. Je suis en (attribut Brevo : NIVEAU_ETUDE) -->
+                <div class="sib-select sib-form-block fr-select-group" id="group-niveau-etude" data-required="true">
+                  <div class="form__entry entry_block">
+                    <label class="entry__label fr-label" for="NIVEAU_ETUDE">
+                      Je suis en
+                      <span class="fr-sr-only">(obligatoire)</span>
+                    </label>
+                    <div class="entry__field">
+                      <select class="input fr-select" id="NIVEAU_ETUDE" name="NIVEAU_ETUDE" data-required="true" required aria-required="true">
+                        <option value="" disabled selected hidden>Sélectionner une option</option>
+                        <option class="sib-menu__item" value="1">Seconde</option>
+                        <option class="sib-menu__item" value="2">Première</option>
+                        <option class="sib-menu__item" value="3">Terminale</option>
+                        <option class="sib-menu__item" value="4">Licence 1</option>
+                        <option class="sib-menu__item" value="5">Licence 2 (ou équivalent)</option>
+                        <option class="sib-menu__item" value="6">Licence 3</option>
+                        <option class="sib-menu__item" value="7">Master 1</option>
+                        <option class="sib-menu__item" value="8">Master 2</option>
+                        <option class="sib-menu__item" value="9">Reconversion professionnelle</option>
+                        <option class="sib-menu__item" value="10">Autre</option>
+                      </select>
+                    </div>
+                    <p class="entry__error entry__error--primary" id="NIVEAU_ETUDE-error"></p>
+                  </div>
+                </div>
+
+                <!-- Champs techniques Brevo (anti-robot et langue) -->
+                <input type="text" name="email_address_check" value="" class="input--hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
+                <input type="hidden" name="locale" value="fr">
+
+                <!-- Groupe de boutons DSFR (ul.fr-btns-group > li) -->
+                <ul class="fr-btns-group fr-btns-group--inline-md fr-mt-4w">
+                  <li>
+                    <button
+                      type="submit"
+                      id="btn-subscribe"
+                      form="sib-form"
+                      class="fr-btn fr-btn--lg fr-icon-arrow-right-line fr-btn--icon-right sib-form-block__button sib-form-block__button-with-loader">
+                      <svg class="progress-indicator__icon sib-hide-loader-icon" aria-hidden="true" viewBox="0 0 512 512">
+                        <path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z"></path>
+                      </svg>
+                      Je m'abonne
+                    </button>
+                  </li>
+                </ul>
+
+              </form>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Réglages Brevo -->
+  <script>
+    window.REQUIRED_CODE_ERROR_MESSAGE = 'Veuillez choisir un code pays';
+    window.LOCALE = 'fr';
+    window.EMAIL_INVALID_MESSAGE = window.SMS_INVALID_MESSAGE = "Les informations que vous avez fournies ne sont pas valides. Veuillez vérifier le format du champ et réessayer.";
+    window.REQUIRED_ERROR_MESSAGE = "Vous devez renseigner ce champ.";
+    window.GENERIC_INVALID_MESSAGE = "Les informations que vous avez fournies ne sont pas valides. Veuillez vérifier le format du champ et réessayer.";
+    window.INVALID_NUMBER = "Les informations que vous avez fournies ne sont pas valides. Veuillez vérifier le format du champ et réessayer.";
+    window.INVALID_DATE = "Veuillez saisir une date valide";
+    window.REQUIRED_MULTISELECT_MESSAGE = 'Veuillez choisir au moins une option';
+    window.translation = {
+      common: {
+        selectedList: '{quantity} liste sélectionnée',
+        selectedLists: '{quantity} listes sélectionnées',
+        selectedOption: '{quantity} sélectionné',
+        selectedOptions: '{quantity} sélectionnés'
+      }
+    };
+    var AUTOHIDE = Boolean(0);
+  </script>
+  <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
+
+  <!-- Script officiel DSFR -->
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.12.1/dist/dsfr.module.min.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.12.1/dist/dsfr.nomodule.min.js"></script>
+</body>
+</html>
