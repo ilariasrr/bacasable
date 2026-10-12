@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="fr" data-fr-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abonnement Lettre d'information - Devenir Enseignant</title>
+
+  <!-- Feuilles de style officielles DSFR -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.12.1/dist/dsfr.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.12.1/dist/utility/utility.min.css">
+
+  <!-- Styles techniques Brevo et sécurisation DSFR anti-écrasement -->
+  <style>
+    /* Intégration et masquage initial des panneaux Brevo */
+    :where(.sib-form-message-panel) {
+      display: none;
+    }
+    .input--hidden {
+      display: none !important;
+    }
+    /* Harmonisation DSFR des alertes de retour Brevo */
+    #error-message.sib-form-message-panel {
+      margin-bottom: 1.5rem;
+    }
+    #success-message.sib-form-message-panel {
+      margin-bottom: 1.5rem;
+    }
+
+    /* Sécurisation absolue du groupe de boutons contre les écrasements CSS externes (Brevo / CMS) */
+    .fr-btns-group {
+      display: flex !important;
+      flex-wrap: wrap !important;
+      gap: 1rem !important;
+      align-items: center !important;
+      list-style: none !important;
+      padding: 0 !important;
+      margin: 2rem 0 0 0 !important;
+    }
+
+    .fr-btns-group > li {
+      margin: 0 !important;
+      padding: 0 !important;
+      list-style-type: none !important;
+      display: inline-flex !important;
+      flex: 0 0 auto !important;
+    }
+
+    /* Neutralisation des règles contraignantes et protection du libellé des boutons */
+    .fr-btns-group .fr-btn {
+      width: auto !important;
+      max-width: none !important;
+      min-width: fit-content !important;
+      flex: 0 0 auto !important;
+      white-space: nowrap !important;
+      overflow: visible !important;
+      text-overflow: clip !important;
+      min-height: 48px !important;
+      padding: 12px 24px !important;
+      font-size: 1rem !important;
+      line-height: 1.5rem !important;
+      box-sizing: border-box !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+
+    /* Adaptation ergonomique et tactile sur mobile */
+    @media (max-width: 576px) {
+      .fr-btns-group {
+        flex-direction: column !important;
+        align-items: stretch !important;
+      }
+      .fr-btns-group > li {
+        width: 100% !important;
+      }
+      .fr-btns-group .fr-btn {
+        width: 100% !important;
+        justify-content: center !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="fr-container fr-my-4w">
+    <div class="fr-grid-row fr-grid-row--center">
+      <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+
+        <!-- En-tête du formulaire -->
+        <h1 class="fr-h2 fr-mb-2w">Abonnez-vous à notre lettre d'information</h1>
+        <p class="fr-text--lead fr-mb-2w">
+          Abonnez-vous à notre lettre d'information pour recevoir des infos personnalisées, des conseils pratiques et le calendrier des temps forts.
+        </p>
+
+        <!-- Mention RGAA obligatoire en l'absence d'astérisques visuels -->
+        <p class="fr-text--xs fr-mb-3w" aria-hidden="false">
+          Sauf mention contraire, tous les champs sont obligatoires.
+        </p>
+
+        <!-- Conteneur d'affichage des messages de retour Brevo (Ajax) -->
+        <div id="error-message" class="sib-form-message-panel fr-alert fr-alert--error fr-mb-3w" role="alert">
+          <p class="fr-alert__title">Erreur lors de l'inscription</p>
+          <p class="sib-form-message-panel__inner-text">
+            Nous n'avons pas pu confirmer votre inscription. Veuillez vérifier vos informations et réessayer.
+          </p>
+        </div>
+
+        <div id="success-message" class="sib-form-message-panel fr-alert fr-alert--success fr-mb-3w" role="alert">
+          <p class="fr-alert__title">Inscription confirmée</p>
+          <p class="sib-form-message-panel__inner-text">
+            Votre inscription est confirmée, merci ! Vous recevrez votre première lettre Devenir enseignant très bientôt.
+          </p>
+        </div>
+
+        <!-- Formulaire fusionné : attributs techniques Brevo + Habillage DSFR & RGAA -->
+        <form 
+          id="sib-form" 
+          method="POST" 
+          action="https://c341516d.sibforms.com/serve/MUIFAOhouc96rHheFnrkqcMzDkOH9pKzS09l7eCdkbMR8uPfo_xrOblZ0KTnuZ2Ba5MdJaO092qgcZQ-RQsn47XfzRe-Fhv9XoKGeaxJTN4hECMc9BC_akxlK7IYKopZwah75FKHJ3x8LHhDp0lu0gG3RsIxG9sHZIlX_DJ1n4pOFipAnzZnlJ2RZtA5UgkXNYxo7iRKDacwkxD07Q==" 
+          data-type="subscription"
+          novalidate>
+
+          <!-- 1. Champ Nom -->
+          <div class="fr-input-group" id="group-nom">
+            <label class="fr-label" for="NOM">
+              Nom
+              <span class="fr-sr-only">(obligatoire)</span>
+            </label>
+            <input 
+              class="fr-input" 
+              type="text" 
+              id="NOM" 
+              name="NOM" 
+              maxlength="200"
+              placeholder="Ex : Dupont" 
+              autocomplete="family-name" 
+              data-required="true" 
+              required 
+              aria-required="true"
+            />
+          </div>
+
+          <!-- 2. Champ Prénom -->
+          <div class="fr-input-group" id="group-prenom">
+            <label class="fr-label" for="PRENOM">
+              Prénom
+              <span class="fr-sr-only">(obligatoire)</span>
+            </label>
+            <input 
+              class="fr-input" 
+              type="text" 
+              id="PRENOM" 
+              name="PRENOM" 
+              maxlength="200"
+              placeholder="Ex : Jean" 
+              autocomplete="given-name" 
+              data-required="true" 
+              required 
+              aria-required="true"
+            />
+          </div>
+
+          <!-- 3. Champ Adresse électronique -->
+          <div class="fr-input-group" id="group-email">
+            <label class="fr-label" for="EMAIL">
+              Adresse électronique
+              <span class="fr-sr-only">(obligatoire)</span>
+            </label>
+            <input 
+              class="fr-input" 
+              type="email" 
+              id="EMAIL" 
+              name="EMAIL" 
+              placeholder="Ex : jean.dupont@gmail.com" 
+              autocomplete="email" 
+              data-required="true" 
+              required 
+              aria-required="true"
+            />
+          </div>
+
+          <!-- 4. Champ Code Postal -->
+          <div class="fr-input-group" id="group-code-postal">
+            <label class="fr-label" for="CODE_POSTAL">
+              Code Postal
+              <span class="fr-sr-only">(obligatoire)</span>
+            </label>
+            <input 
+              class="fr-input" 
+              type="text" 
+              id="CODE_POSTAL" 
+              name="CODE_POSTAL" 
+              maxlength="5" 
+              pattern="[0-9]{5}" 
+              inputmode="numeric" 
+              placeholder="Ex : 75001" 
+              autocomplete="postal-code" 
+              data-numeric="true" 
+              data-required="true" 
+              required 
+              aria-required="true"
+            />
+          </div>
+
+          <!-- 5. Menu déroulant 'Je suis en' (Attribut Brevo : NIVEAU_ETUDE) -->
+          <div class="fr-select-group" id="group-niveau-etude">
+            <label class="fr-label" for="NIVEAU_ETUDE">
+              Je suis en
+              <span class="fr-sr-only">(obligatoire)</span>
+            </label>
+            <select 
+              class="fr-select" 
+              id="NIVEAU_ETUDE" 
+              name="NIVEAU_ETUDE" 
+              data-required="true" 
+              required 
+              aria-required="true">
+              <option value="" disabled selected hidden>Sélectionner une option</option>
+              <option value="1">Seconde</option>
+              <option value="2">Première</option>
+              <option value="3">Terminale</option>
+              <option value="4">Licence 1</option>
+              <option value="5">Licence 2 (ou équivalent)</option>
+              <option value="6">Licence 3</option>
+              <option value="7">Master 1</option>
+              <option value="8">Master 2</option>
+              <option value="9">Reconversion professionnelle</option>
+              <option value="10">Autre</option>
+            </select>
+          </div>
+
+          <!-- Champs cachés obligatoires pour la sécurité et la configuration Brevo -->
+          <input type="text" name="email_address_check" value="" class="input--hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <input type="hidden" name="locale" value="fr">
+
+          <!-- Groupe de boutons officiel DSFR (structure ul.fr-btns-group > li) -->
+          <ul class="fr-btns-group fr-btns-group--inline-md fr-mt-4w">
+            <li>
+              <button 
+                type="submit" 
+                id="btn-subscribe" 
+                class="fr-btn fr-btn--lg fr-icon-arrow-right-line fr-btn--icon-right">
+                Je m'abonne
+              </button>
+            </li>
+            <li>
+              <a 
+                href="https://info.devenirenseignant.gouv.fr" 
+                class="fr-btn fr-btn--secondary fr-btn--lg fr-icon-arrow-right-line fr-btn--icon-right" 
+                role="button">
+                Je me désabonne
+              </a>
+            </li>
+          </ul>
+
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- Scripts techniques officiels Brevo pour validation et transmission Ajax -->
+  <script>
+    window.REQUIRED_CODE_ERROR_MESSAGE = 'Veuillez choisir un code pays';
+    window.LOCALE = 'fr';
+    window.EMAIL_INVALID_MESSAGE = window.SMS_INVALID_MESSAGE = "Les informations que vous avez fournies ne sont pas valides. Veuillez vérifier le format du champ et réessayer.";
+    window.REQUIRED_ERROR_MESSAGE = "Vous devez renseigner ce champ.";
+    window.GENERIC_INVALID_MESSAGE = "Les informations que vous avez fournies ne sont pas valides. Veuillez vérifier le format du champ et réessayer.";
+    window.INVALID_NUMBER = "Les informations que vous avez fournies ne sont pas valides. Veuillez vérifier le format du champ et réessayer.";
+    window.INVALID_DATE = "Veuillez saisir une date valide";
+    window.REQUIRED_MULTISELECT_MESSAGE = 'Veuillez choisir au moins une option';
+    window.translation = {
+      common: {
+        selectedList: '{quantity} liste sélectionnée',
+        selectedLists: '{quantity} listes sélectionnées',
+        selectedOption: '{quantity} sélectionné',
+        selectedOptions: '{quantity} sélectionnés',
+      }
+    };
+    var AUTOHIDE = Boolean(0);
+  </script>
+  <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
+
+  <!-- Script officiel DSFR -->
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.12.1/dist/dsfr.module.min.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.12.1/dist/dsfr.nomodule.min.js"></script>
+</body>
+</html>
